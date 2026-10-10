@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>صفحة الأدلة والأرشيف</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Share+Tech+Mono&display=swap');
+
+:root {
+    --primary-red: #ff1b1b;
+    --dark-red: #7d0000;
+    --hover-red: #b00000;
+    --bg-black: #030303;
+    --card-bg: linear-gradient(145deg, #120000, #050505);
+    --border-color: #650000;
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 50% 0%, #400000 0%, transparent 50%),
+        linear-gradient(135deg, #030303, #0b0000 55%, #020202);
+    color: #fff;
+    font-family: 'Cairo', sans-serif;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* خلفية الشبكة المتحركة */
+body::before{
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: .12;
+    background-image:
+        linear-gradient(rgba(255,0,0,.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,0,0,.2) 1px, transparent 1px);
+    background-size: 30px 30px;
+    z-index: 1;
+}
+
+/* خط مسح الرادار الإلكتروني */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
+    opacity: 0.6;
+    animation: scan 6s linear infinite;
+    z-index: 2;
+    pointer-events: none;
+}
+
+@keyframes scan {
+    0% { top: 0%; }
+    100% { top: 100%; }
+}
+
+.container {
+    position: relative;
+    z-index: 3;
+}
+
+/* الهيدر */
+header{
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    border-bottom: 2px solid var(--border-color);
+    background:
+        linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.95)),
+        radial-gradient(circle, #4a0000, #050505 80%);
+    box-shadow: 0 10px 30px rgba(255, 0, 0, 0.15);
+}
+
+.logo{
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--primary-red);
+    font-size: 16px;
+    letter-spacing: 5px;
+    margin-bottom: 15px;
+    background: rgba(255, 27, 27, 0.1);
+    padding: 6px 16px;
+    border: 1px solid rgba(255, 27, 27, 0.3);
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+h1{
+    font-size: clamp(28px, 5vw, 65px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+    text-shadow:
+        0 0 10px rgba(255, 0, 0, 0.8),
+        0 0 30px rgba(255, 0, 0, 0.4);
+    max-width: 1000px;
+}
+
+.subtitle{
+    margin-top: 20px;
+    color: #ccc;
+    font-size: 16px;
+    max-width: 850px;
+    line-height: 1.7;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 12px 20px;
+    border-radius: 6px;
+    border-right: 3px solid var(--primary-red);
+}
+
+/* قسم الأسماء */
+.names-section{
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 25px;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.names-title{
+    color: var(--primary-red);
+    font-size: 28px;
+    font-weight: 900;
+    display: inline-block;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+.names-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+    transform: translateX(50%);
+    width: 60%;
+    height: 2px;
+    background: var(--primary-red);
+    box-shadow: 0 0 10px var(--primary-red);
+}
+
+.names-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.name-card{
+    min-height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow:
+        inset 0 0 15px rgba(255, 0, 0, 0.05),
+        0 8px 25px rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.name-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--primary-red);
+}
+
+.name-card span{
+    font-size: 20px;
+    font-weight: 700;
+    color: #f2f2f2;
+    letter-spacing: 0.5px;
+}
+
+/* قسم الروابط والأدلة */
+.links-page{
+    max-width: 1100px;
+    margin: 60px auto 80px;
+    padding: 40px 25px;
+    background: rgba(10, 0, 0, 0.6);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.8);
+}
+
+.links-title{
+    text-align: center;
+    font-size: clamp(26px, 4vw, 45px);
+    font-weight: 900;
+    color: var(--primary-red);
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+    margin-bottom: 10px;
+}
+
+.links-subtitle{
+    text-align: center;
+    color: #aaa;
+    margin-bottom: 35px;
+    font-size: 15px;
+}
+
+.links-list{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.link-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 22px 25px;
+    background: #080808;
+    border-right: 4px solid var(--primary-red);
+    border-left: 1px solid #250000;
+    border-top: 1px solid #250000;
+    border-bottom: 1px solid #250000;
+    border-radius: 6px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    transition: background 0.3s ease;
+}
+
+.link-row:hover {
+    background: #0d0d0d;
+}
+
+.link-details {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.link-number{
+    min-width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #210000;
+    color: var(--primary-red);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 27, 27, 0.2);
+}
+
+.link-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow: hidden;
+}
+
+.link-label {
+    font-size: 14px;
+    color: #fff;
+    font-weight: 700;
+}
+
+.link-url{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    direction: ltr;
+    text-align: left;
+    color: #888;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+}
+
+.open-link{
+    flex-shrink: 0;
+    padding: 12px 28px;
+    color: #fff;
+    background: var(--dark-red);
+    border: 1px solid var(--primary-red);
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(125, 0, 0, 0.4);
+}
+
+.open-link:hover{
+    background: var(--hover-red);
+    box-shadow: 0 0 15px rgba(255, 27, 27, 0.6);
+    transform: translateY(-2px);
+}
+
+/* الفوتر */
+footer{
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+    font-family: 'Share Tech Mono', monospace;
+    border-top: 1px solid #1a0000;
+    background: #020202;
+    font-size: 14px;
+}
+
+footer span {
+    color: var(--primary-red);
+    font-weight: bold;
+}
+
+/* التجاوب مع مختلف الشاشات */
+@media(max-width: 800px){
+    header {
+        min-height: auto;
+        padding: 50px 15px;
+    }
+
+    .names-grid{
+        grid-template-columns: 1fr;
+    }
+
+    .name-card{
+        min-height: 90px;
+    }
+
+    .link-row{
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .link-details {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .link-number {
+        width: 100%;
+    }
+
+    .link-url{
+        width: 100%;
+        font-size: 11px;
+    }
+
+    .open-link{
+        text-align: center;
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <div class="logo">ARCHIVE // SYSTEM - Created by Mr.X</div>
+
+        <h1>فضايح طلاب الصف الاول الثانوي قريه دلهمو </h1>
+
+        <div class="subtitle">
+            أرشيف الملفات والروابط وفضح كل تلك الأسماء: مصطفى محمود، شكري صفوت، عمر يحيى، عبد العظيم سعيد، ناريمان بشير، وإايات سعد.
+        </div>
+    </header>
+
+
+    <section class="names-section">
+
+        <div class="section-header">
+            <h2 class="names-title">الملفات والفضائح</h2>
+        </div>
+
+        <div class="names-grid">
+
+            <div class="name-card">
+                <span>مصطفى محمود عوض</span>
+            </div>
+
+            <div class="name-card">
+                <span>شكري صفوت عوض</span>
+            </div>
+
+            <div class="name-card">
+                <span>عمر يحيى عبد الرحمن أبو المجد</span>
+            </div>
+
+            <div class="name-card">
+                <span>عبد العظيم سعيد الجوهري</span>
+            </div>
+
+            <div class="name-card">
+                <span>آيات سعد</span>
+            </div>
+
+            <div class="name-card">
+                <span>ناريمان بشير محي الدين</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="links-page">
+
+        <h2 class="links-title">صفحة الأدلة والروابط</h2>
+
+        <p class="links-subtitle">
+            جميع الأدلة والملفات الحصرية متوفرة عبر الرابط التالي:
+        </p>
+
+        <div class="links-list">
+
+            <div class="link-row">
+                <div class="link-details">
+                    <div class="link-number">01</div>
+                    <div class="link-info">
+                        <span class="link-label">مجلد Google Drive للأدلة والملفات</span>
+                        <div class="link-url">
+                            https://drive.google.com/drive/folders/13g4xd0depqpFdxDtZisWyGxfSRo99H42
+                        </div>
+                    </div>
+                </div>
+                <a class="open-link"
+                   href="https://drive.google.com/drive/folders/13g4xd0depqpFdxDtZisWyGxfSRo99H42"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                   فتح الرابط
+                </a>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+        ARCHIVE SYSTEM // Designed by <span>Mr.X</span>
+    </footer>
+
+</div>
+
+</body>
+  </html>
